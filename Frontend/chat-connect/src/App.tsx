@@ -1,9 +1,9 @@
 import React from 'react';
-import './App.css';
+import classes from './App.module.css';
 
-function App() {
+const  App = () => {
   return (
-    <div>
+    <div className={classes.background}>
 
     </div>
   );
