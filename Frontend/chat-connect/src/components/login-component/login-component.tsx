@@ -11,10 +11,10 @@ interface LoginComponentProps {
 const LoginComponent = ({ className, children }: LoginComponentProps) => {
     return (
         <div className={classes.loginWrapper}>
-            <Text fw={700} size="xl">Login</Text>
+            <span className={classes.titleStyle}>Login</span>
             <TextInput
                 placeholder="Username"
-                className={classes.inputStyle}
+                classNames={{input: classes.inputStyle}}
             />
             <PasswordInput
                 placeholder="Password"
@@ -25,10 +25,10 @@ const LoginComponent = ({ className, children }: LoginComponentProps) => {
                         <IoEye />
                     )
                 }
-                className={classes.inputStyle}
+                classNames={{wrapper: classes.passwordWrapper, innerInput: classes.inputPasswordStyle, visibilityToggle: classes.passwordIcon}}
             />
-            <Button className={classes.dimensionStyle}>Login</Button>
-            <Button className={classes.dimensionStyle}>Don't have an account ? Sign up</Button>
+            <Button className={classes.buttonStyle}>Login</Button>
+            <Button className={classes.buttonStyle}>Sign up</Button>
         </div>
     );
 }
