@@ -1,4 +1,10 @@
+using ChatConnectAPI.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Add db context
+builder.Services.AddDbContext<Entities>(options => options.UseSqlServer(), ServiceLifetime.Singleton);
 
 // Add services to the container.
 builder.Services.AddControllers();
