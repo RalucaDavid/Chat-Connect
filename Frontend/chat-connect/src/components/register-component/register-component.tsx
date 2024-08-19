@@ -3,7 +3,11 @@ import classes from './register-component.module.css';
 import { Dictionary } from '../../dictionaries/en';
 import { IoEye, IoEyeOff } from 'react-icons/io5';
 
-const RegisterComponent = () =>{
+interface RegisterComponentProps{
+    openLogin: () => void
+}
+
+const RegisterComponent = ({openLogin}:RegisterComponentProps) =>{
     return (
         <div className={classes.loginWrapper}>
             <span className={classes.titleStyle}>{Dictionary.register}</span>
@@ -27,7 +31,7 @@ const RegisterComponent = () =>{
                 classNames={{wrapper: classes.passwordWrapper, innerInput: classes.inputPasswordStyle, visibilityToggle: classes.passwordIcon}}
             />
             <Button className={classes.buttonStyle}>{Dictionary.register}</Button>
-            <Button className={classes.buttonStyle}>{Dictionary.alreadyHaveAccount}</Button>
+            <Button className={classes.buttonStyle} onClick={openLogin}>{Dictionary.alreadyHaveAccount}</Button>
         </div>
     );
 }

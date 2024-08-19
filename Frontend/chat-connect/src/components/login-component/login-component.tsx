@@ -4,7 +4,11 @@ import { IoEyeOff } from "react-icons/io5";
 import classes from './login-component.module.css';
 import { Dictionary } from '../../dictionaries/en';
 
-const LoginComponent = () => {
+interface LoginComponentProps{
+    openRegister: () => void
+}
+
+const LoginComponent = ({openRegister}:LoginComponentProps) => {
     return (
         <div className={classes.loginWrapper}>
             <span className={classes.titleStyle}>{Dictionary.login}</span>
@@ -24,7 +28,7 @@ const LoginComponent = () => {
                 classNames={{wrapper: classes.passwordWrapper, innerInput: classes.inputPasswordStyle, visibilityToggle: classes.passwordIcon}}
             />
             <Button className={classes.buttonStyle}>{Dictionary.login}</Button>
-            <Button className={classes.buttonStyle}>{Dictionary.createNewAccount}</Button>
+            <Button className={classes.buttonStyle} onClick={openRegister}>{Dictionary.createNewAccount}</Button>
         </div>
     );
 }
