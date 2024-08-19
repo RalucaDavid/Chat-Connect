@@ -1,0 +1,70 @@
+
+.loginWrapper{
+    background-color: #d24526;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 350px;
+    height: 370px;
+    border: 10px;
+    border: groove;
+}
+
+.buttonStyle{
+    width: 255px;
+    margin-bottom: 5px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #f7d517;
+    font-size: 18px;
+}
+
+.titleStyle{
+   font-size: 40px;
+   padding: 0px;
+   margin: 0px 0px 20px 0px;
+}
+
+.buttonStyle:hover{
+    background-color: #11e568;
+    cursor: pointer;
+}
+
+.inputStyle{
+    width: 250px;
+    height: 40px;
+    font-size: 18px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+}
+
+.inputPasswordStyle{
+    width: 250px;
+    height: 40px;
+    font-size: 18px;
+    border-radius: 10px;
+}
+
+.passwordIcon{
+    position: absolute;
+    right: 0.3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    background: none;
+    border: none; 
+    padding: 0; 
+    margin: 0; 
+    font: inherit; 
+    cursor: pointer; 
+    color: inherit; 
+    text-align: left;
+    z-index: 1;
+}
+
+.passwordWrapper{
+    position: relative;
+    display: inline-block;
+    margin: 0px 0px 10px 0px;
+}

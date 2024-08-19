@@ -1,15 +1,18 @@
-import { Button, PasswordInput, Text, TextInput } from '@mantine/core';
-import { IoEye } from "react-icons/io5";
-import { IoEyeOff } from "react-icons/io5";
-import classes from './login-component.module.css';
+import { Button, PasswordInput, TextInput } from '@mantine/core';
+import classes from './register-component.module.css';
 import { Dictionary } from '../../dictionaries/en';
+import { IoEye, IoEyeOff } from 'react-icons/io5';
 
-const LoginComponent = () => {
+const RegisterComponent = () =>{
     return (
         <div className={classes.loginWrapper}>
-            <span className={classes.titleStyle}>{Dictionary.login}</span>
+            <span className={classes.titleStyle}>{Dictionary.register}</span>
             <TextInput
                 placeholder={Dictionary.username}
+                classNames={{input: classes.inputStyle}}
+            />
+            <TextInput
+                placeholder={Dictionary.email}
                 classNames={{input: classes.inputStyle}}
             />
             <PasswordInput
@@ -23,10 +26,10 @@ const LoginComponent = () => {
                 }
                 classNames={{wrapper: classes.passwordWrapper, innerInput: classes.inputPasswordStyle, visibilityToggle: classes.passwordIcon}}
             />
-            <Button className={classes.buttonStyle}>{Dictionary.login}</Button>
-            <Button className={classes.buttonStyle}>{Dictionary.createNewAccount}</Button>
+            <Button className={classes.buttonStyle}>{Dictionary.register}</Button>
+            <Button className={classes.buttonStyle}>{Dictionary.alreadyHaveAccount}</Button>
         </div>
     );
 }
 
-export default LoginComponent;
+export default RegisterComponent;
