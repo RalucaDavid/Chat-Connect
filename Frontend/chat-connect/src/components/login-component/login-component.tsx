@@ -2,6 +2,7 @@ import { Button, PasswordInput, Text, TextInput } from '@mantine/core';
 import { IoEye } from "react-icons/io5";
 import { IoEyeOff } from "react-icons/io5";
 import classes from './login-component.module.css';
+import { Dictionary } from '../../dictionaries/en';
 
 interface LoginComponentProps {
     className?: string;
@@ -11,13 +12,13 @@ interface LoginComponentProps {
 const LoginComponent = ({ className, children }: LoginComponentProps) => {
     return (
         <div className={classes.loginWrapper}>
-            <span className={classes.titleStyle}>Login</span>
+            <span className={classes.titleStyle}>{Dictionary.login}</span>
             <TextInput
-                placeholder="Username"
+                placeholder={Dictionary.username}
                 classNames={{input: classes.inputStyle}}
             />
             <PasswordInput
-                placeholder="Password"
+                placeholder={Dictionary.password}
                 visibilityToggleIcon={({ reveal }) =>
                     reveal ? (
                         <IoEyeOff />
@@ -27,8 +28,8 @@ const LoginComponent = ({ className, children }: LoginComponentProps) => {
                 }
                 classNames={{wrapper: classes.passwordWrapper, innerInput: classes.inputPasswordStyle, visibilityToggle: classes.passwordIcon}}
             />
-            <Button className={classes.buttonStyle}>Login</Button>
-            <Button className={classes.buttonStyle}>Sign up</Button>
+            <Button className={classes.buttonStyle}>{Dictionary.login}</Button>
+            <Button className={classes.buttonStyle}>{Dictionary.signUp}</Button>
         </div>
     );
 }
