@@ -4,8 +4,8 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add db context
-builder.Services.AddDbContext<Entities>(options => options.UseSqlServer(), ServiceLifetime.Singleton);
-
+builder.Services.AddDbContext<Entities>(options =>
+       options.UseSqlServer(builder.Configuration.GetConnectionString("ChatConnect")));
 // Add services to the container.
 builder.Services.AddControllers();
 
