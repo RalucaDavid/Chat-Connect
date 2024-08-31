@@ -16,6 +16,7 @@ const  App = () => {
     setOpenedLogin(false);
     setOpenedRegister(true);
   }
+  
   return (
     <div className={classes.wrapper}>
        {
