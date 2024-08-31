@@ -1,4 +1,6 @@
 using ChatConnectAPI.Data;
+using ChatConnectAPI.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add db context
 builder.Services.AddDbContext<Entities>(options =>
        options.UseSqlServer(builder.Configuration.GetConnectionString("ChatConnect")));
+
+builder.Services.AddSingleton<PasswordHasher<User>>();
+
 // Add services to the container.
 builder.Services.AddControllers();
 

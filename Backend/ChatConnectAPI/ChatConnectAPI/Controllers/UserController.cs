@@ -3,6 +3,7 @@ using ChatConnectAPI.Domain.Entities;
 using ChatConnectAPI.Dtos;
 using ChatConnectAPI.ReadModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 
 namespace ChatConnectAPI.Controllers
 {
@@ -11,10 +12,12 @@ namespace ChatConnectAPI.Controllers
     public class UserController : ControllerBase
     {
         private readonly Entities _entities;
+        private readonly PasswordHasher<User> _passwordHasher;
 
-        public UserController(Entities entities)
+        public UserController(Entities entities, PasswordHasher<User> passwordHasher)
         {
             _entities = entities;
+            _passwordHasher = passwordHasher;
         }
 
         [HttpPost]
@@ -27,13 +30,15 @@ namespace ChatConnectAPI.Controllers
 
             if(existingUser != null)
             {
-                return BadRequest();
+                return BadRequest("User already exists.");
             }
+
+            var hashedPassword = _passwordHasher.HashPassword(null, dto.password);
 
             _entities.Users.Add(new User(
                 dto.username,
                 dto.email,
-                dto.password
+                hashedPassword
                 ));
             _entities.SaveChanges();
             return CreatedAtAction(nameof(Find), "User", new { username = dto.username, email = dto.email, password = dto.password }, dto);
@@ -47,12 +52,11 @@ namespace ChatConnectAPI.Controllers
         {
             var user = _entities.Users.FirstOrDefault(u =>
                             u.username == username &&
-                            u.email == email &&
-                            u.password == password);
+                            u.email == email);
 
-            if(user == null)
+            if(user == null || _passwordHasher.VerifyHashedPassword(user, user.password, password) != PasswordVerificationResult.Success)
             {
-                return NotFound();
+                return NotFound("Invalid username, email, or password.");
             }
 
             var rm = new UserRm(
