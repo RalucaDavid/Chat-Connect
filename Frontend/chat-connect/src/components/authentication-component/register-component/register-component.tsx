@@ -1,6 +1,6 @@
 import { Button, PasswordInput, TextInput } from '@mantine/core';
 import classes from './register-component.module.css';
-import { Dictionary } from '../../dictionaries/en';
+import { Dictionary } from '../../../dictionaries/en';
 import { IoEye, IoEyeOff } from 'react-icons/io5';
 
 interface RegisterComponentProps{

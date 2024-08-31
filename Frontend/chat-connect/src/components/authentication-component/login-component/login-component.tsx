@@ -2,7 +2,7 @@ import { Button, PasswordInput, Text, TextInput } from '@mantine/core';
 import { IoEye } from "react-icons/io5";
 import { IoEyeOff } from "react-icons/io5";
 import classes from './login-component.module.css';
-import { Dictionary } from '../../dictionaries/en';
+import { Dictionary } from '../../../dictionaries/en';
 
 interface LoginComponentProps{
     openRegister: () => void
