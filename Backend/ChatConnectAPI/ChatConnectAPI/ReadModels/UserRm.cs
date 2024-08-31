@@ -1,6 +1,6 @@
 ﻿namespace ChatConnectAPI.ReadModels
 {
-    public class UserRm(
+    public record UserRm(
         String username,
         String email,
         String password
