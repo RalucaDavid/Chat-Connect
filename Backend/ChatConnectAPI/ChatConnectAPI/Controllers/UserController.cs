@@ -41,18 +41,16 @@ namespace ChatConnectAPI.Controllers
                 hashedPassword
                 ));
             _entities.SaveChanges();
-            return CreatedAtAction(nameof(Find), "User", new { username = dto.username, email = dto.email, password = dto.password }, dto);
+            return CreatedAtAction(nameof(Find), "User", new { username = dto.username, password = dto.password }, dto);
         }
 
-        [HttpGet("{username}/{email}/{password}")]
+        [HttpGet("{username}/{password}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public ActionResult<UserRm> Find(String username, String email, String password)
+        public ActionResult<UserRm> Find(String username, String password)
         {
-            var user = _entities.Users.FirstOrDefault(u =>
-                            u.username == username &&
-                            u.email == email);
+            var user = _entities.Users.FirstOrDefault(u => u.username == username);
 
             if(user == null || _passwordHasher.VerifyHashedPassword(user, user.password, password) != PasswordVerificationResult.Success)
             {
