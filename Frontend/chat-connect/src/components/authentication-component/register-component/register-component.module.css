@@ -1,6 +1,6 @@
 
 .loginWrapper{
-    background-color: #318CE7;
+    background-color: #101B0E;
     display:flex;
     align-items: center;
     justify-content: center;
@@ -16,7 +16,7 @@
     margin-bottom: 5px;
     height: 50px !important;
     border-radius: 10px !important;
-    background-color: #f7d517 !important;
+    background-color: #5f0a87 !important;
     font-size: 18px !important;
 }
 
@@ -28,7 +28,7 @@
 }
 
 .buttonStyle:hover{
-    background-color: #0039a6 !important;
+    background-color: #2f004f !important;
     cursor: pointer;
 }
 
@@ -36,7 +36,7 @@
     width: 255px !important;
     height: 45px !important;
     font-size: 18px !important;
-    border-radius: 10px;
+    border-radius: 10px !important;
     margin-bottom: 5px;
 }
 
