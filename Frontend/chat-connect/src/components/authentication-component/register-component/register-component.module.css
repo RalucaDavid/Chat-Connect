@@ -24,6 +24,7 @@
    font-size: 40px;
    padding: 0px;
    margin: 0px 0px 20px 0px;
+   color:white;
 }
 
 .buttonStyle:hover{
@@ -32,48 +33,29 @@
 }
 
 .inputStyle{
-    width: 250px;
-    height: 40px;
+    width: 255px;
+    height: 45px;
     font-size: 18px;
     border-radius: 10px;
     margin-bottom: 5px;
 }
 
-.inputPasswordStyle{
-    width: 250px;
-    height: 40px;
+.inputPassword{
+    border-radius: 10px; 
+    height: 45px;
     font-size: 18px;
-    border-radius: 10px;
-}
-
-.passwordIcon{
-    position: absolute;
-    right: 0.3rem;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    background: none;
-    border: none; 
-    padding: 0; 
-    margin: 0; 
-    font: inherit; 
-    cursor: pointer; 
-    color: inherit; 
-    text-align: left;
-    z-index: 1;
 }
 
 .passwordWrapper{
-    position: relative;
-    display: inline-block;
     margin: 0px 0px 10px 0px;
+    width: 255px;
 }
 
 .errorMessage{
     padding: 0px;
     margin: 0px;
     color:  #1F305E;
-    width: 250px;
-    height: 40px;
+    width: 255px;
+    height: 45px;
     text-align: center;
 }

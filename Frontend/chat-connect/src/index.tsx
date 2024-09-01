@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import { MantineProvider } from '@mantine/core';
 import reportWebVitals from './reportWebVitals';
+import '@mantine/core/styles.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

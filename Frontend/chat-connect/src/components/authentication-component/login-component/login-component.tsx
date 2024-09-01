@@ -48,7 +48,8 @@ const LoginComponent = ({openRegister, onLogin}:LoginComponentProps) => {
                         <IoEye />
                     )
                 }
-                classNames={{wrapper: classes.passwordWrapper, innerInput: classes.inputPasswordStyle, visibilityToggle: classes.passwordIcon}}
+                className = {classes.passwordWrapper}
+                classNames={{input: classes.inputPassword}}
             />
             <Button className={classes.buttonStyle} onClick={handleLogin}>{Dictionary.login}</Button>
             <Button className={classes.buttonStyle} onClick={openRegister}>{Dictionary.createNewAccount}</Button>
