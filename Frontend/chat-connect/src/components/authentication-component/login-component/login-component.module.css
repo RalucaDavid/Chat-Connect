@@ -6,7 +6,7 @@
     justify-content: center;
     flex-direction: column;
     width: 350px;
-    height: 370px;
+    height: 390px;
     border: 10px;
     border: groove;
 }
@@ -66,4 +66,13 @@
     position: relative;
     display: inline-block;
     margin: 5px 0px 10px 0px;
+}
+
+.errorMessage{
+    padding: 0px;
+    margin: 0px;
+    color:  #1F305E;
+    width: 250px;
+    height: 40px;
+    text-align: center;
 }

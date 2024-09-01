@@ -6,5 +6,7 @@ export const Dictionary = {
     register: "Register",
     email: "Email",
     createNewAccount: "Create a New Account",
-    alreadyHaveAccount: "Already have an account?"
+    alreadyHaveAccount: "Already have an account?",
+    loginFailedMessage: "Login failed. Please check your username and password.",
+    registerFailedMessage: "Register failed. Invalid data or a user has the same data."
 }
