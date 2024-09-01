@@ -1,6 +1,6 @@
 
 .loginWrapper{
-    background-color: #d24526;
+    background-color: #318CE7;
     display:flex;
     align-items: center;
     justify-content: center;
@@ -12,12 +12,12 @@
 }
 
 .buttonStyle{
-    width: 255px;
+    width: 255px !important;
     margin-bottom: 5px;
-    height: 50px;
-    border-radius: 10px;
-    background-color: #f7d517;
-    font-size: 18px;
+    height: 50px !important;
+    border-radius: 10px !important;
+    background-color: #f7d517 !important;
+    font-size: 18px !important;
 }
 
 .titleStyle{
@@ -28,32 +28,32 @@
 }
 
 .buttonStyle:hover{
-    background-color: #11e568;
+    background-color: #0039a6 !important;
     cursor: pointer;
 }
 
 .inputStyle{
-    width: 255px;
-    height: 45px;
+    width: 255px !important;
+    height: 45px !important;
     font-size: 18px;
-    border-radius: 10px;
+    border-radius: 10px !important; 
 }
 
 .inputPassword{
-    border-radius: 10px; 
-    height: 45px;
+    border-radius: 10px !important; 
+    height: 45px !important;
     font-size: 18px;
 }
 
 .passwordWrapper{
     margin: 5px 0px 10px 0px;
-    width: 255px;
+    width: 255px !important;
 }
 
 .errorMessage{
     padding: 0px;
     margin: 0px;
-    color:  #1F305E;
+    color: #9e212d !important; 
     width: 255px;
     height: 45px;
     text-align: center;
