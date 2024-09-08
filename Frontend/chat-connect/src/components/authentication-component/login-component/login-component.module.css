@@ -35,7 +35,7 @@
 .inputStyle{
     width: 255px !important;
     height: 45px !important;
-    font-size: 18px;
+    font-size: 18px !important;
     border-radius: 10px !important; 
 }
 
