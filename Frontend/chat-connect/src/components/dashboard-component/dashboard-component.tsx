@@ -2,12 +2,36 @@
 import { useState } from 'react';
 import classes from './dashboard-component.module.css';
 import { Alert } from '@mantine/core';
+import { Dictionary } from '../../dictionaries/en';
+import { LuInfo } from "react-icons/lu";
 
 const DashboardComponent = () => {
     const [opened, setOpened] = useState(true);
 
     return (
         <div>
+            <Alert variant="filled" color="#5f0a87" title={Dictionary.chatRules} withCloseButton icon={<LuInfo />} className={classes.alertContent}>
+                <ul>
+                    <li>
+                        <span className={classes.titleRule}>{Dictionary.beRespectful}</span> {Dictionary.beRespectfulText}
+                    </li>
+                    <li>
+                        <span className={classes.titleRule}>{Dictionary.privacy}</span> {Dictionary.privacyText}
+                    </li>
+                    <li>
+                        <span className={classes.titleRule}>{Dictionary.noSpam}</span> {Dictionary.noSpamText}
+                    </li>
+                    <li>
+                        <span className={classes.titleRule}>{Dictionary.appropriateContent}</span> {Dictionary.appropriateContentText}
+                    </li>
+                    <li>
+                        <span className={classes.titleRule}>{Dictionary.safetyFirst}</span> {Dictionary.safetyFirstText}
+                    </li>
+                    <li>
+                        <span className={classes.titleRule}>{Dictionary.moderation}</span> {Dictionary.moderationText}
+                    </li>
+                </ul>
+            </Alert>
         </div>
     );
 }
