@@ -22,4 +22,5 @@ export const Dictionary = {
     appropriateContentText: "No illegal or inappropriate material.",
     safetyFirstText: "No encouragement of illegal activities.",
     moderationText: "Report and follow up on rule violations.",
+    chatConnect: "Chat Connect",
 }
