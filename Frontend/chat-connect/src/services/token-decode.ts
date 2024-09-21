@@ -1,9 +1,16 @@
-import {jwtDecode} from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
-export const getUsernameFromToken = (token: string) => {
+const getToken = () => {
+  return localStorage.getItem('token');
+};
+
+export const getUsernameFromToken = () => {
   try {
-    const decodedToken = jwtDecode(token);
-    return decodedToken.sub;
+    const token = getToken();
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      return decodedToken.sub;
+    }
   } catch (error) {
     console.error('Error decoding token:', error);
     return null;

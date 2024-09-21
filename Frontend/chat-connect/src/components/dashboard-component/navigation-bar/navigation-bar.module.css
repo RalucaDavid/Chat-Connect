@@ -11,9 +11,9 @@
 } 
 
 .title{
-    font-weight: bold;
-    color: white;
-    font-size: 30px;
+    font-weight: bold !important;
+    color: white !important;
+    font-size: 30px !important;
 }
 
 .logoWrapper, .userInfo{
@@ -29,13 +29,14 @@
 }
 
 .adminButton, .adminButton:hover{
-    background-color: transparent; 
-    border: none;  
-    color: inherit; 
+    background-color: transparent !important; 
+    border: none !important;  
+    color: inherit !important; 
+    padding: 10px !important;
 }
 
 .text{
-    color: white;
-    font-size: 15px;
-    font-weight: bold;
+    color: white !important;
+    font-size: 15px !important;
+    font-weight: bold !important;
 }

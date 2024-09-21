@@ -1,10 +1,13 @@
 
 import { Button, Text } from '@mantine/core';
-import classes from './navigation-bar.module.css';
 import { Dictionary } from '../../../dictionaries/en';
 import { IoLogoWechat } from "react-icons/io5";
+import { getUsernameFromToken } from "../../../services/token-decode";
+import classes from './navigation-bar.module.css';
 
 const NavigationBar = () => {
+   const username = getUsernameFromToken();
+
    return (
       <div className={classes.navBar}>
          <div className={classes.logoWrapper}>
@@ -18,7 +21,7 @@ const NavigationBar = () => {
                {Dictionary.admin}
             </Button>
             <Text className={classes.text}>
-               {Dictionary.hello}
+               {Dictionary.hello} {username}
             </Text>
          </div>
       </div>

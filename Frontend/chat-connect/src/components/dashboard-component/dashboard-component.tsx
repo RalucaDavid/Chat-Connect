@@ -20,6 +20,7 @@ const DashboardComponent = () => {
                     <Alert variant="filled" color="#5f0a87"
                         title={Dictionary.chatRules} withCloseButton icon={<LuInfo />}
                         className={classes.alertContent} radius="md"
+                        classNames={{label: classes.alertTile}}
                         onClose={() => { setOpened(false) }}>
                         <ul>
                             <li>
