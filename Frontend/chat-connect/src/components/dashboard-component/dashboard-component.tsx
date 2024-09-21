@@ -5,6 +5,7 @@ import { Alert } from '@mantine/core';
 import { Dictionary } from '../../dictionaries/en';
 import { LuInfo } from "react-icons/lu";
 import NavigationBar from './navigation-bar';
+import ChatComponent from './chat-component';
 
 const DashboardComponent = () => {
     const [opened, setOpened] = useState(true);
@@ -16,7 +17,7 @@ const DashboardComponent = () => {
             </div>
             <div className={classes.alertContainer}>
                 {
-                    opened &&
+                    opened ?
                     <Alert variant="filled" color="#5f0a87"
                         title={Dictionary.chatRules} withCloseButton icon={<LuInfo />}
                         className={classes.alertContent} radius="md"
@@ -43,6 +44,8 @@ const DashboardComponent = () => {
                             </li>
                         </ul>
                     </Alert>
+                    :
+                    <ChatComponent/>
                 }
             </div>
         </div >

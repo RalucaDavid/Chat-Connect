@@ -25,4 +25,6 @@ export const Dictionary = {
     chatConnect: "Chat Connect",
     admin: "Admin",
     hello: "Hello, ",
+    report: "Report",
+    writeMessage: "Write a message...",
 }

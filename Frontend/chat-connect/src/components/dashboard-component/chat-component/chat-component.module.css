@@ -1,0 +1,62 @@
+
+.chatWrapper{
+    height: 100%;
+    width: 75vw;
+    min-width: 350px;
+    border-radius: 15px;
+    padding: 15px;
+    outline: 16px solid #5f0a87;
+    outline-offset: -15px;
+    flex-direction: column;
+}
+
+.personInfo{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 0px 15px 0px;
+    background-color: #5f0a87;
+}
+
+.personName{
+    color: white !important;
+    font-weight: bold !important;
+    font-size: 20px !important;
+}
+
+.reportButton{
+    background-color: #b22222 !important;
+}
+
+.reportButton:hover{
+    background-color: #941919 !important;
+}
+
+.inputMessage{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    padding: 10px;
+    background-color: white;
+    gap: 5px;
+    width: 100%;
+}
+
+.input{
+    width: 100%;
+}
+
+.inputButton{
+    background-color:#5f0a87 !important;
+    padding: 10px 15px 10px 15px !important;
+}
+
+.iconInput{
+    font-size: 18px;
+}
+
+.messagesWrapper{
+    background-color: white;
+    height: 87%;
+    width: 100%;
+}
