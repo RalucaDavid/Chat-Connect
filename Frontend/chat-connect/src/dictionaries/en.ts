@@ -23,4 +23,6 @@ export const Dictionary = {
     safetyFirstText: "No encouragement of illegal activities.",
     moderationText: "Report and follow up on rule violations.",
     chatConnect: "Chat Connect",
+    admin: "Admin",
+    hello: "Hello, ",
 }

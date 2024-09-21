@@ -5,11 +5,37 @@
    height: 60px;
    display: flex;
    align-items: center;
+   justify-content: space-between;
    padding: 10px;
+   gap: 20px;
 } 
 
 .title{
     font-weight: bold;
     color: white;
     font-size: 30px;
+}
+
+.logoWrapper, .userInfo{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.icon{
+    color: white;
+    font-size: 35px;
+}
+
+.adminButton, .adminButton:hover{
+    background-color: transparent; 
+    border: none;  
+    color: inherit; 
+}
+
+.text{
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
 }
