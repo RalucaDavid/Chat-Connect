@@ -3,7 +3,7 @@ import classes from './register-component.module.css';
 import { Dictionary } from '../../../dictionaries/en';
 import { IoEye, IoEyeOff } from 'react-icons/io5';
 import { useState } from 'react';
-import { register } from '../../../services/user';
+import { register } from '../../../services/autentification';
 import User from "../../../models/user";
 
 interface RegisterComponentProps {

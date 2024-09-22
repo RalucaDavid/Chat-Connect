@@ -1,0 +1,23 @@
+
+.right, .left{
+    color: white;
+    padding: 10px 15px; 
+    border-radius: 10px; 
+    margin-bottom: 10px; 
+    word-wrap: break-word; 
+    display: inline-block; 
+    max-width: 80%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.right{
+    align-self: flex-end;
+    margin-left: auto;
+    background-color:  #2f004f;
+}
+
+.left{
+    align-self: flex-start;
+    margin-right: auto; 
+    background-color: #101B0E;
+}

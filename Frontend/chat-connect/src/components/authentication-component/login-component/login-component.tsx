@@ -4,7 +4,7 @@ import { IoEyeOff } from "react-icons/io5";
 import classes from './login-component.module.css';
 import { Dictionary } from '../../../dictionaries/en';
 import { useState } from 'react';
-import { login } from '../../../services/user';
+import { login } from '../../../services/autentification';
 
 interface LoginComponentProps{
     openRegister: () => void;
