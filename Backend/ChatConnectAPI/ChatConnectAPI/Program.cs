@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.AspNetCore.SignalR; // Pentru SignalR
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,7 +43,28 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
         };
+
+        // Integrarea autentificării JWT în SignalR
+        options.Events = new JwtBearerEvents
+        {
+            OnMessageReceived = context =>
+            {
+                var accessToken = context.Request.Query["access_token"];
+                var path = context.HttpContext.Request.Path;
+
+                // Dacă request-ul este pentru SignalR și include tokenul JWT în query string, atunci îl preia
+                if (!string.IsNullOrEmpty(accessToken) &&
+                    (path.StartsWithSegments("/chatHub")))
+                {
+                    context.Token = accessToken;
+                }
+                return Task.CompletedTask;
+            }
+        };
     });
+
+// Add SignalR service
+builder.Services.AddSignalR(); // Adăugăm serviciul SignalR
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -65,6 +87,10 @@ app.UseCors("AllowAllOrigins");
 app.UseAuthentication();  // Adaugă autentificarea JWT
 app.UseAuthorization();
 
+// Map controllers
 app.MapControllers();
+
+// Map SignalR Hubs
+app.MapHub<ChatHub>("/chatHub");  // Endpoint pentru SignalR
 
 app.Run();
