@@ -27,4 +27,5 @@ export const Dictionary = {
     hello: "Hello, ",
     report: "Report",
     writeMessage: "Write a message...",
+    chatWithSomeoneElse: "Chat with someone else"
 }

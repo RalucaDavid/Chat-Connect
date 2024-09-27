@@ -24,6 +24,23 @@
     font-size: 20px !important;
 }
 
+.refreshButton{
+    background-color: #004F98 !important;
+}
+
+.refreshIcon{
+    margin-right: 5px;
+}
+
+.refreshButton:hover{
+    background-color:  #00308F!important;
+}
+
+.buttonsWrapper{
+    display: flex;
+    gap: 10px;
+}
+
 .reportButton{
     background-color: #b22222 !important;
 }
@@ -47,8 +64,12 @@
 }
 
 .inputButton{
-    background-color:#5f0a87 !important;
+    background-color:#008000 !important;
     padding: 10px 15px 10px 15px !important;
+}
+
+.inputButton:hover{
+    background-color: #005500!important;
 }
 
 .iconInput{

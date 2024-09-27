@@ -10,6 +10,7 @@ import { getUsernameFromToken } from '../../../services/token-decode';
 import * as signalR from "@microsoft/signalr";
 import { message } from '../../../types/message';
 import { HubConnection } from '@microsoft/signalr';
+import { FiRefreshCcw } from "react-icons/fi";
 import { decryptMessage, encryptMessage } from '../../../services/message-encode';
 
 const ChatComponent = () => {
@@ -34,7 +35,7 @@ const ChatComponent = () => {
                 .then(() => {
                     connection.on("ReceiveMessage", (username: string, message: string) => {
                         const decryptedMessage = decryptMessage(message);
-                        setMessagesList((prevMessagesList) => [...prevMessagesList, { username: username, message:decryptedMessage }]);
+                        setMessagesList((prevMessagesList) => [...prevMessagesList, { username: username, message: decryptedMessage }]);
                     });
                 })
                 .catch((error: any) => console.log(error));
@@ -47,7 +48,7 @@ const ChatComponent = () => {
                 const currentUser = getUsernameFromToken();
                 const encryptedMessage = encryptMessage(currentMessage);
                 await connection.send("SendMessage", currentUser, encryptedMessage);
-                setMessagesList((prevMessagesList) => [...prevMessagesList, { username: currentUser, message: currentMessage} as any]);
+                setMessagesList((prevMessagesList) => [...prevMessagesList, { username: currentUser, message: currentMessage } as any]);
                 setCurrentMessage("");
             } catch (error) {
                 console.error(error);
@@ -61,10 +62,16 @@ const ChatComponent = () => {
                 <Text className={classes.personName}>
                     Marcel
                 </Text>
-                <Button className={classes.reportButton}>
-                    <LuFlagTriangleRight />
-                    {Dictionary.report}
-                </Button>
+                <div className={classes.buttonsWrapper}>
+                    <Button className={classes.refreshButton}>
+                        <FiRefreshCcw className={classes.refreshIcon}/>
+                        {Dictionary.chatWithSomeoneElse}
+                    </Button>
+                    <Button className={classes.reportButton}>
+                        <LuFlagTriangleRight />
+                        {Dictionary.report}
+                    </Button>
+                </div>
             </div>
             <div className={classes.messagesWrapper}>
                 {messagesList.map((msg, index) => (
