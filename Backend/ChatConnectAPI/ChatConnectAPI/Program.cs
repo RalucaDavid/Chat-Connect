@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Microsoft.AspNetCore.SignalR; // Pentru SignalR
+using Microsoft.AspNetCore.SignalR;
+using ChatConnectAPI.Hubs; // Pentru SignalR
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<Entities>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ChatConnect")));
 
+// Add password hasher service
 builder.Services.AddSingleton<PasswordHasher<User>>();
 
 // Add services to the container.
@@ -21,11 +23,13 @@ builder.Services.AddControllers();
 // Configure CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAllOrigins",
-        builder =>
-        {
-            builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
-        });
+    options.AddPolicy("CorsPolicy", builder =>
+    {
+        builder.WithOrigins("http://localhost:3000")  // Specifică originea frontend-ului
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .AllowCredentials();  // Permite credențiale (cookie-uri, tokenuri)
+    });
 });
 
 // Add JWT authentication
@@ -52,9 +56,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 var accessToken = context.Request.Query["access_token"];
                 var path = context.HttpContext.Request.Path;
 
-                // Dacă request-ul este pentru SignalR și include tokenul JWT în query string, atunci îl preia
-                if (!string.IsNullOrEmpty(accessToken) &&
-                    (path.StartsWithSegments("/chatHub")))
+                // Dacă request-ul este pentru SignalR și include tokenul JWT în query string, îl preia
+                if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/chatHub"))
                 {
                     context.Token = accessToken;
                 }
@@ -64,7 +67,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 // Add SignalR service
-builder.Services.AddSignalR(); // Adăugăm serviciul SignalR
+builder.Services.AddSignalR(); // Adaugă SignalR
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -81,10 +84,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors("AllowAllOrigins");
+// Utilizează politica CORS definită mai sus
+app.UseCors("CorsPolicy");
 
 // Add authentication and authorization middleware
-app.UseAuthentication();  // Adaugă autentificarea JWT
+app.UseAuthentication();  // Adaugă middleware-ul de autentificare (JWT)
 app.UseAuthorization();
 
 // Map controllers

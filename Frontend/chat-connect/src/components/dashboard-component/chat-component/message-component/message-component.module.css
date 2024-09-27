@@ -13,11 +13,11 @@
 .right{
     align-self: flex-end;
     margin-left: auto;
-    background-color: #101B0E;
+    background-color: #2f004f;
 }
 
 .left{
     align-self: flex-start;
     margin-right: auto; 
-    background-color:  #2f004f;
+    background-color: #101B0E;
 }

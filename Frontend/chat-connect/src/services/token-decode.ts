@@ -1,7 +1,7 @@
 import { jwtDecode } from 'jwt-decode';
 
 const getToken = () => {
-  return localStorage.getItem('token');
+  return sessionStorage.getItem('token');
 };
 
 export const getUsernameFromToken = () => {
