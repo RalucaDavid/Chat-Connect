@@ -10,6 +10,7 @@ import { getUsernameFromToken } from '../../../services/token-decode';
 import * as signalR from "@microsoft/signalr";
 import { message } from '../../../types/message';
 import { HubConnection } from '@microsoft/signalr';
+import { decryptMessage, encryptMessage } from '../../../services/message-encode';
 
 const ChatComponent = () => {
     const [connection, setConnection] = useState<HubConnection | null>(null);
@@ -32,7 +33,8 @@ const ChatComponent = () => {
                 .start()
                 .then(() => {
                     connection.on("ReceiveMessage", (username: string, message: string) => {
-                        setMessagesList((prevMessagesList) => [...prevMessagesList, { username, message }]);
+                        const decryptedMessage = decryptMessage(message);
+                        setMessagesList((prevMessagesList) => [...prevMessagesList, { username: username, message:decryptedMessage }]);
                     });
                 })
                 .catch((error: any) => console.log(error));
@@ -43,8 +45,9 @@ const ChatComponent = () => {
         if (connection && currentMessage.trim() !== "") {
             try {
                 const currentUser = getUsernameFromToken();
-                await connection.send("SendMessage", currentUser, currentMessage);
-                setMessagesList((prevMessagesList) => [...prevMessagesList, { username: currentUser, message: currentMessage } as any]);
+                const encryptedMessage = encryptMessage(currentMessage);
+                await connection.send("SendMessage", currentUser, encryptedMessage);
+                setMessagesList((prevMessagesList) => [...prevMessagesList, { username: currentUser, message: currentMessage} as any]);
                 setCurrentMessage("");
             } catch (error) {
                 console.error(error);
