@@ -41,14 +41,6 @@
     gap: 10px;
 }
 
-.reportButton{
-    background-color: #b22222 !important;
-}
-
-.reportButton:hover{
-    background-color: #941919 !important;
-}
-
 .inputMessage{
     display: flex;
     align-items: center;

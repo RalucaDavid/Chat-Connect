@@ -27,5 +27,6 @@ export const Dictionary = {
     hello: "Hello, ",
     report: "Report",
     writeMessage: "Write a message...",
-    chatWithSomeoneElse: "Chat with someone else"
+    chatWithSomeoneElse: "Chat with someone else",
+    waitForSomeoneToJoin: "Wait for someone to join...",
 }

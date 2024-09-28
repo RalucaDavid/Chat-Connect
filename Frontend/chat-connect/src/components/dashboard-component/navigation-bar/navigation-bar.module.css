@@ -28,13 +28,6 @@
     font-size: 35px;
 }
 
-.adminButton, .adminButton:hover{
-    background-color: transparent !important; 
-    border: none !important;  
-    color: inherit !important; 
-    padding: 10px !important;
-}
-
 .text{
     color: white !important;
     font-size: 15px !important;

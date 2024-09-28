@@ -16,8 +16,10 @@ import { decryptMessage, encryptMessage } from '../../../services/message-encode
 const ChatComponent = () => {
     const [connection, setConnection] = useState<HubConnection | null>(null);
     const [messagesList, setMessagesList] = useState<message[]>([]);
-
     const [currentMessage, setCurrentMessage] = useState("");
+
+    const [waitingForPair, setWaitingForPair] = useState(true); 
+    const [usernamePair, setUsernamePair] = useState("");
 
     useEffect(() => {
         const newConnection = new signalR.HubConnectionBuilder()
@@ -36,6 +38,20 @@ const ChatComponent = () => {
                     connection.on("ReceiveMessage", (username: string, message: string) => {
                         const decryptedMessage = decryptMessage(message);
                         setMessagesList((prevMessagesList) => [...prevMessagesList, { username: username, message: decryptedMessage }]);
+                    });
+
+                    connection.on("WaitingForPair", () => {
+                        setWaitingForPair(true); 
+                    });
+
+                    connection.on("PairFound", (username: string) => {
+                        setUsernamePair(username);
+                        setWaitingForPair(false);
+                    });
+
+                    connection.on("Disconnected", () => {
+                        setMessagesList([]);  
+                        setWaitingForPair(true);
                     });
                 })
                 .catch((error: any) => console.log(error));
@@ -56,24 +72,37 @@ const ChatComponent = () => {
         }
     };
 
+    const refreshChat = async () => {
+        if (connection) {
+            await connection.invoke("Disconnect"); 
+            setMessagesList([]); 
+            setWaitingForPair(true); 
+            setUsernamePair("");
+
+            await connection.invoke("Connect", getUsernameFromToken());
+        }
+    };
+
     return (
         <div className={classes.chatWrapper}>
             <div className={classes.personInfo}>
                 <Text className={classes.personName}>
-                    Marcel
+                    {usernamePair}
                 </Text>
                 <div className={classes.buttonsWrapper}>
-                    <Button className={classes.refreshButton}>
+                    <Button className={classes.refreshButton} onClick={refreshChat} disabled={waitingForPair}>
                         <FiRefreshCcw className={classes.refreshIcon}/>
                         {Dictionary.chatWithSomeoneElse}
-                    </Button>
-                    <Button className={classes.reportButton}>
-                        <LuFlagTriangleRight />
-                        {Dictionary.report}
                     </Button>
                 </div>
             </div>
             <div className={classes.messagesWrapper}>
+                {
+                    waitingForPair && 
+                    <Text>
+                        {Dictionary.waitForSomeoneToJoin}
+                    </Text>
+                }
                 {messagesList.map((msg, index) => (
                     <MessageComponent
                         key={index}
@@ -87,8 +116,9 @@ const ChatComponent = () => {
                     className={classes.input}
                     value={currentMessage}
                     onChange={(e) => setCurrentMessage(e.target.value)}
+                    disabled={waitingForPair}
                 />
-                <Button className={classes.inputButton} onClick={sendMessage}>
+                <Button className={classes.inputButton} onClick={sendMessage} disabled={waitingForPair}>
                     <VscSend className={classes.iconInput} />
                 </Button>
             </div>
