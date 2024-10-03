@@ -1,69 +1,57 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using ChatConnectAPI.Domain.Entities;
+using ChatConnectAPI.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
+using System;
 using System.Threading.Tasks;
 
 namespace ChatConnectAPI.Hubs
 {
     public class ChatHub : Hub
     {
-        private static List<string> connectedUsers = new List<string>();
+        private static List<string> waitingUsers = new List<string>();
         private static Dictionary<string, string> pairedUsers = new Dictionary<string, string>();
-        private Dictionary<string, string> usernamesList = new Dictionary<string, string>();
+        private static Dictionary<string, string> usernamesList = new Dictionary<string, string>();
+
+        private RandomIndex randomIndex = new RandomIndex();
 
         public async Task Connect(string username)
         {
             usernamesList[Context.ConnectionId] = username;
+            waitingUsers.Add(Context.ConnectionId);
 
-            connectedUsers.Add(Context.ConnectionId);
+            await Clients.Caller.SendAsync("WaitingForPair");
+            await SearchForPair();
+        }
 
-            if (connectedUsers.Count >= 2)
+        public async Task SearchForPair()
+        {
+            if (waitingUsers.Count >= 2 && !pairedUsers.ContainsKey(Context.ConnectionId))
             {
-                string user1 = connectedUsers[0];
-                string user2 = connectedUsers[1];
+                int indexUser1, indexUser2;
+                do
+                {
+                    indexUser1 = randomIndex.GetRandomIndex(waitingUsers.Count());
+                    indexUser2 = randomIndex.GetRandomIndex(waitingUsers.Count());
+                } 
+                while (indexUser1 == indexUser2);
 
-                string username1 = usernamesList[user1];
-                string username2 = usernamesList[user2];
+                string user1 = waitingUsers[indexUser1];
+                string user2 = waitingUsers[indexUser2];
 
                 pairedUsers.Add(user1, user2);
                 pairedUsers.Add(user2, user1);
 
-                await Clients.Client(user1).SendAsync("PairFound", username2);
-                await Clients.Client(user2).SendAsync("PairFound", username1);
+                await Clients.Client(user1).SendAsync("Paired", usernamesList[user2]);
+                await Clients.Client(user2).SendAsync("Paired", usernamesList[user1]);
 
-                connectedUsers.RemoveAt(0);
-                connectedUsers.RemoveAt(0);
+                waitingUsers.RemoveAt(Math.Max(indexUser1, indexUser2));
+                waitingUsers.RemoveAt(Math.Min(indexUser1, indexUser2));
             }
             else
             {
-                await Clients.Client(Context.ConnectionId).SendAsync("WaitingForPair");
+                await Clients.Caller.SendAsync("WaitingForPair");
             }
-        }
-
-        public async Task Disconnect()
-        {
-            var connectionId = Context.ConnectionId;
-
-            if (pairedUsers.ContainsKey(connectionId))
-            {
-                var pairConnectionId = pairedUsers[connectionId];
-
-                await Clients.Client(pairConnectionId).SendAsync("Disconnected", connectionId);
-                await Clients.Client(connectionId).SendAsync("Disconnected", pairConnectionId);
-
-                pairedUsers.Remove(connectionId);
-                pairedUsers.Remove(pairConnectionId);
-
-                if (!connectedUsers.Contains(connectionId))
-                {
-                    connectedUsers.Add(connectionId);
-                }
-
-                if (!connectedUsers.Contains(pairConnectionId))
-                {
-                    connectedUsers.Add(pairConnectionId);
-                }
-            }
-
         }
 
         public async Task SendMessage(string username, string message)
@@ -73,6 +61,45 @@ namespace ChatConnectAPI.Hubs
                 string otherUser = pairedUsers[Context.ConnectionId];
                 await Clients.Client(otherUser).SendAsync("ReceiveMessage", username, message);
             }
+        }
+
+        public async Task Disconnect()
+        {
+            if (pairedUsers.ContainsKey(Context.ConnectionId))
+            {
+                string otherUser = pairedUsers[Context.ConnectionId];
+
+                pairedUsers.Remove(Context.ConnectionId);
+                pairedUsers.Remove(otherUser);
+
+                await Clients.Client(otherUser).SendAsync("WaitingForPair");
+                await Clients.Caller.SendAsync("WaitingForPair");
+
+                waitingUsers.Add(otherUser);
+                waitingUsers.Add(Context.ConnectionId);
+
+                await SearchForPair();
+            }
+        }
+
+        public override async Task OnDisconnectedAsync(Exception exception)
+        {
+            waitingUsers.Remove(Context.ConnectionId);
+            usernamesList.Remove(Context.ConnectionId);
+
+            if (pairedUsers.ContainsKey(Context.ConnectionId))
+            {
+                string otherUser = pairedUsers[Context.ConnectionId];
+                pairedUsers.Remove(otherUser);
+                pairedUsers.Remove(Context.ConnectionId);
+
+                waitingUsers.Add(otherUser);
+                await Clients.Client(otherUser).SendAsync("WaitingForPair");
+
+                await SearchForPair();
+            }
+
+            await base.OnDisconnectedAsync(exception);
         }
     }
 

@@ -2,7 +2,6 @@
 import { Button, Input, Text } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { VscSend } from "react-icons/vsc";
-import { LuFlagTriangleRight } from 'react-icons/lu';
 import { Dictionary } from '../../../dictionaries/en';
 import classes from './chat-component.module.css';
 import MessageComponent from './message-component';
@@ -18,7 +17,7 @@ const ChatComponent = () => {
     const [messagesList, setMessagesList] = useState<message[]>([]);
     const [currentMessage, setCurrentMessage] = useState("");
 
-    const [waitingForPair, setWaitingForPair] = useState(true); 
+    const [waitingForPair, setWaitingForPair] = useState(false);
     const [usernamePair, setUsernamePair] = useState("");
 
     useEffect(() => {
@@ -35,23 +34,23 @@ const ChatComponent = () => {
             connection
                 .start()
                 .then(() => {
+                    const username = getUsernameFromToken();
+                    connection.invoke("Connect", username);
+
                     connection.on("ReceiveMessage", (username: string, message: string) => {
                         const decryptedMessage = decryptMessage(message);
                         setMessagesList((prevMessagesList) => [...prevMessagesList, { username: username, message: decryptedMessage }]);
                     });
 
                     connection.on("WaitingForPair", () => {
-                        setWaitingForPair(true); 
+                        setWaitingForPair(true);
+                        setUsernamePair("");
+                        setMessagesList([]);
                     });
 
-                    connection.on("PairFound", (username: string) => {
+                    connection.on("Paired", (username: string) => {
                         setUsernamePair(username);
                         setWaitingForPair(false);
-                    });
-
-                    connection.on("Disconnected", () => {
-                        setMessagesList([]);  
-                        setWaitingForPair(true);
                     });
                 })
                 .catch((error: any) => console.log(error));
@@ -74,12 +73,10 @@ const ChatComponent = () => {
 
     const refreshChat = async () => {
         if (connection) {
-            await connection.invoke("Disconnect"); 
-            setMessagesList([]); 
-            setWaitingForPair(true); 
+            await connection.invoke("Disconnect");
+            setMessagesList([]);
+            setWaitingForPair(true);
             setUsernamePair("");
-
-            await connection.invoke("Connect", getUsernameFromToken());
         }
     };
 
@@ -91,14 +88,14 @@ const ChatComponent = () => {
                 </Text>
                 <div className={classes.buttonsWrapper}>
                     <Button className={classes.refreshButton} onClick={refreshChat} disabled={waitingForPair}>
-                        <FiRefreshCcw className={classes.refreshIcon}/>
+                        <FiRefreshCcw className={classes.refreshIcon} />
                         {Dictionary.chatWithSomeoneElse}
                     </Button>
                 </div>
             </div>
             <div className={classes.messagesWrapper}>
                 {
-                    waitingForPair && 
+                    waitingForPair &&
                     <Text>
                         {Dictionary.waitForSomeoneToJoin}
                     </Text>
