@@ -45,8 +45,8 @@ namespace ChatConnectAPI.Hubs
                 await Clients.Client(user1).SendAsync("Paired", usernamesList[user2]);
                 await Clients.Client(user2).SendAsync("Paired", usernamesList[user1]);
 
-                waitingUsers.RemoveAt(Math.Max(indexUser1, indexUser2));
-                waitingUsers.RemoveAt(Math.Min(indexUser1, indexUser2));
+                waitingUsers.Remove(user1);
+                waitingUsers.Remove(user2);
             }
             else
             {
@@ -77,15 +77,13 @@ namespace ChatConnectAPI.Hubs
 
                 waitingUsers.Add(otherUser);
                 waitingUsers.Add(Context.ConnectionId);
-
-                await SearchForPair();
             }
         }
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {
-            waitingUsers.Remove(Context.ConnectionId);
             usernamesList.Remove(Context.ConnectionId);
+            waitingUsers.Remove(Context.ConnectionId);
 
             if (pairedUsers.ContainsKey(Context.ConnectionId))
             {

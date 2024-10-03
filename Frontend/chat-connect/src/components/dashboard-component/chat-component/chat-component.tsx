@@ -77,6 +77,8 @@ const ChatComponent = () => {
             setMessagesList([]);
             setWaitingForPair(true);
             setUsernamePair("");
+
+            await connection.invoke("SearchForPair");
         }
     };
 
