@@ -7,7 +7,7 @@ Chat Connect is a web-based app designed to connect users, enabling real-time co
     <strong>Authentication:</strong> Users need to log in to access the platform and start conversations.
   </li>
   <li>
-    <strong>User Identification:</strong> Easily view the name of the person you're chatting with.
+    <strong>User Identification:</strong> View the username of the random user you're chatting with.
   </li>
   <li>
     <strong>Real-Time Chat:</strong> Engage in instant one-on-one conversations with other users.
