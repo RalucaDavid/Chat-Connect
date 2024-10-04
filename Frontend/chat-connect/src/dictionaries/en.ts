@@ -21,7 +21,6 @@ export const Dictionary = {
     noSpamText: "No unsolicited ads or links.",
     appropriateContentText: "No illegal or inappropriate material.",
     safetyFirstText: "No encouragement of illegal activities.",
-    moderationText: "Report and follow up on rule violations.",
     chatConnect: "Chat Connect",
     admin: "Admin",
     hello: "Hello, ",

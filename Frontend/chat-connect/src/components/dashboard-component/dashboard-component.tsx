@@ -39,9 +39,6 @@ const DashboardComponent = () => {
                             <li>
                                 <span className={classes.titleRule}>{Dictionary.safetyFirst}</span> {Dictionary.safetyFirstText}
                             </li>
-                            <li>
-                                <span className={classes.titleRule}>{Dictionary.moderation}</span> {Dictionary.moderationText}
-                            </li>
                         </ul>
                     </Alert>
                     :
