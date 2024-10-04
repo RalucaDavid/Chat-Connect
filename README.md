@@ -41,5 +41,6 @@ Chat Connect is a web-based app designed to connect users, enabling real-time co
 ![image](https://github.com/user-attachments/assets/f7a919a1-411b-4602-abff-9e12e1ac9a58)
 ![image](https://github.com/user-attachments/assets/a46b3c51-ef1e-4cf6-be67-e3737abcee5e)
 ![image](https://github.com/user-attachments/assets/8161d1cd-4f00-4d3e-9327-2d2de142ad12)
+![image](https://github.com/user-attachments/assets/97ac2a60-a0e4-4a15-afbe-295d1b3cd451)
 
 
