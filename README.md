@@ -26,7 +26,7 @@ Chat Connect is a web-based app designed to connect users, enabling real-time co
      <strong>Frontend:</strong> React, TypeScript, Axios, Node.js
    </li>
    <li>
-     <strong>Backend:</strong> C#, ASP.NET, Swagger, SignalR
+     <strong>Backend:</strong> C#, ASP.NET Core, Swagger, SignalR
    </li>
    <li>
      <strong>Database:</strong> SQL Server
